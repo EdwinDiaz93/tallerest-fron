@@ -1,5 +1,5 @@
 import './App.css';
-import MovieForm from "./components/MovieForm";
+import MovieForm from "@/components/MovieForm";
 
 function App() {
   return (
