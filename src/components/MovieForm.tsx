@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { handleSubmit } from "../api/Api";
 
 const FormWrapper = styled.div`
   max-width: 400px;
@@ -38,14 +37,13 @@ const MovieForm = () => {
         budget: ""
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
     const handleFormSubmit = async () => {
         try {
-            await handleSubmit(formData);
         } catch (error) {
             console.error("Error submitting data:", error);
         }
