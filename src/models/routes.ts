@@ -5,5 +5,6 @@ export enum PublicRoutes {
 export enum PrivateRoutes {
     PRIVATE = 'private',
     DASHBOARD = 'dashboard',
-    HOME = 'home',
+    MOVIES = 'peliculas',
+    OPTIONS = 'opciones',
 }
