@@ -26,7 +26,8 @@ const userSlice = createSlice({
             localStorage.setItem('user', JSON.stringify(result));
             return result;
         },
-        resetUser: () => {
+        resetUser: (state) => {
+            state = EmptyUserState;
             localStorage.removeItem('user');
             return EmptyUserState;
         }
