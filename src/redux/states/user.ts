@@ -14,16 +14,20 @@ export const userKey = 'user';
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: EmptyUserState,
+    initialState: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : EmptyUserState,
     reducers: {
         createUser: (state, action) => {
-            return action.payload
+            const user = action.payload;
+            localStorage.setItem('user', JSON.stringify(user));
+            return user;
         },
         updateUser: (state, action) => {
             const result = { ...state, ...action.payload };
+            localStorage.setItem('user', JSON.stringify(result));
             return result;
         },
         resetUser: () => {
+            localStorage.removeItem('user');
             return EmptyUserState;
         }
     }

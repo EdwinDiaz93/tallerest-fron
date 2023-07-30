@@ -31,7 +31,7 @@ class BaseRepository {
         instance.interceptors.request.use(
             (config) => {
                 // Obtenemos el token de localStorage
-                const token = localStorage.getItem('token');
+                const { token } = JSON.parse(localStorage.getItem('user') || '');
 
                 // Asignamos el token al encabezado de autorización para cada petición
                 if (token) {
