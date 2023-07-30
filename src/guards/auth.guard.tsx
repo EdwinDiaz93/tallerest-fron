@@ -5,8 +5,6 @@ import { PublicRoutes } from '../models';
 
 export const AuthGuard = () => {
     const userState = useSelector((store: AppStore) => store.user);
-    console.log((userState.token));
-    
     return userState.token ? <Outlet /> : <Navigate replace to={PublicRoutes.LOGIN} />;
 }
 

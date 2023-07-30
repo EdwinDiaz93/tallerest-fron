@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../../interfaces/user.interface';
+import { IUser } from '../../interfaces';
 
 export const EmptyUserState: IUser = {
     id: '',

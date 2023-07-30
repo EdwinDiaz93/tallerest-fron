@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthRepository } from '../../services';
 import { createUser } from '../../redux/states/user';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { AppStore } from '../../redux';
 const Login = () => {
-  const authRepo = new AuthRepository();
+
+  const authRepo = useMemo(() => new AuthRepository(), []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ const Login = () => {
       }
     }
     redirect();
-  })
+  }, [navigate, user, authRepo])
   return (
     <>
       <h2>Login</h2>
