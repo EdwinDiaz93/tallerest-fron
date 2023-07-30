@@ -1,9 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { IUser } from '../interfaces';
+import { userSlice } from './states';
 
-export const store = configureStore({
-    reducer: {},
-    middleware: (getDefaultMiddlewate) => getDefaultMiddlewate({}).concat([]),
+export interface AppStore {
+    user: IUser;
+}
+
+export const store = configureStore<AppStore>({
+    reducer: {
+        user: userSlice,
+    },
 });
 
-export type RootState=ReturnType<typeof store.getState>
-export type AppDispatch=ReturnType<typeof store.dispatch>
