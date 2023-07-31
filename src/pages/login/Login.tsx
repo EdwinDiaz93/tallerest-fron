@@ -29,7 +29,7 @@ const Login = () => {
 
   const { register, handleSubmit, formState, reset } = form;
 
-  const { errors, isSubmitSuccessful, isSubmitting } = formState;
+  const { errors, isSubmitSuccessful } = formState;
 
   // functions
   const login = async (data: LoginFormValues) => {
@@ -118,7 +118,6 @@ const Login = () => {
               </div>
               <div className="mt-8 flex justify-left text-lg text-black">
                 <button
-                  disabled={isSubmitting}
                   type="submit"
                   className="w-full rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600"
                 >
