@@ -20,7 +20,7 @@ const movieSlice = createSlice({
         setMovies: (state, action) => {
             return { ...state, ...action.payload };
         },
-        resetMovies: (state, action) => {
+        resetMovies: (state) => {
             return EmptyMovieState;
         }
     }

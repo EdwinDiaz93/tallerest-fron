@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from 'sweetalert2';
+
 import { AppStore } from "../../../redux";
 import { Modal, Table } from "../../../components"
 import { MoviesRepository } from "../../../services";
@@ -50,7 +51,7 @@ const Movies = () => {
       id: +movie.id,
       name: movie.name,
       budget: movie.budget,
-      date: movie.date,
+      date: dateTransform(new Date(movie.date)),
       duration: movie.duration,
     });
     setShowModal(true);

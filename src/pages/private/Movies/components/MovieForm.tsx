@@ -7,10 +7,12 @@ interface Props {
     movie: MovieFormValues
 }
 
-const MoviehtmlForm = ({ movie, closeModal, saveMovie }: Props) => {
+const MovieForm = ({ movie, closeModal, saveMovie }: Props) => {
+
+
     const form = useForm<MovieFormValues>({
         defaultValues: {
-            ...movie,            
+            ...movie,
         }
     });
 
@@ -88,6 +90,13 @@ const MoviehtmlForm = ({ movie, closeModal, saveMovie }: Props) => {
                             value: true,
                             message: 'The date field is required'
                         },
+                        validate: {
+                            maxDate: (value) => {
+                                const now = new Date().getTime();
+                                const date = new Date(value).getTime();
+                                return date <= now || 'Must be a past date';
+                            }
+                        }
                     })}
                 />
                 <p className="text-red text-sm italic text-red-600">{errors.date?.message}.</p>
@@ -124,4 +133,4 @@ const MoviehtmlForm = ({ movie, closeModal, saveMovie }: Props) => {
         </form>
     )
 }
-export default MoviehtmlForm
+export default MovieForm

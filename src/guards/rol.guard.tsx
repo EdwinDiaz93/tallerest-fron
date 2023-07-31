@@ -3,9 +3,12 @@ import { AppStore } from "../redux/store";
 import { PrivateRoutes, Roles } from "../models";
 import { Navigate, Outlet } from "react-router-dom";
 
-const UserGuard = () => {
-    const userState = useSelector((store: AppStore) => store.user);
-    const rolUser = !userState.email.includes('admin') && Roles.USER;
-    return rolUser === Roles.USER ? <Outlet /> : <Navigate replace to={PrivateRoutes.PRIVATE} />
+interface Props {
+    rol: Roles,
 }
-export default UserGuard 
+
+const RolGuard = ({ rol }: Props) => {
+    const userState = useSelector((store: AppStore) => store.user);
+    return userState.roles?.find(rolUser => rolUser.name === rol) ? <Outlet /> : <Navigate replace to={`/${PrivateRoutes.PRIVATE}`} />
+}
+export default RolGuard 
