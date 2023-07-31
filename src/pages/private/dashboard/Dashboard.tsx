@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { resetUser } from "../../../redux/states/user";
 import { AppStore } from '../../../redux/store';
 import { NavBar } from "../../../components";
+import { resetMovies } from "../../../redux/states/movie";
 
 interface Props {
   options: any
@@ -17,6 +18,7 @@ const Dashboard = ({ options }: Props) => {
 
   const handleLogout = () => {
     dispatch(resetUser());
+    dispatch(resetMovies())
     navigate('/login', { replace: true });
   }
 
