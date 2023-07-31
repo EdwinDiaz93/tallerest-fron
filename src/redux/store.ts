@@ -1,16 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { IMovie, IUser } from '../interfaces';
-import { userSlice, movieSlice } from './states';
+import { IMovie, IOption, IUser } from '../interfaces';
+import { userSlice, movieSlice, optionSlice } from './states';
 
 export interface AppStore {
     user: IUser;
-    movie: IMovie
+    movie: IMovie,
+    option: IOption
 }
 
 export const store = configureStore<AppStore>({
     reducer: {
         user: userSlice,
         movie: movieSlice,
+        option: optionSlice
     },
 });
 

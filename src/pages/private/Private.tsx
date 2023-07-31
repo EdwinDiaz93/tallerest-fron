@@ -23,10 +23,10 @@ const Private = () => {
       try {
         const response = await optionRepo.getOptions();
         if (user.roles?.some(rol => rol.name === Roles.USER)) {
-          const menu = response.filter((menu: any) => menu.path === 'rentar')
+          const menu = response.rows.filter((menu: any) => menu.path === 'rentar')
           setOptions(menu);
         } else {
-          const menu = response.filter((menu: any) => menu.path !== 'rentar')
+          const menu = response.rows.filter((menu: any) => menu.path !== 'rentar')
           setOptions(menu);
         }
 
