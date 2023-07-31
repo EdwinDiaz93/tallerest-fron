@@ -9,6 +9,6 @@ interface Props {
 
 const RolGuard = ({ rol }: Props) => {
     const userState = useSelector((store: AppStore) => store.user);
-    return userState.roles?.find(rolUser => rolUser.name === rol) ? <Outlet /> : <Navigate replace to={PrivateRoutes.DASHBOARD} />
+    return userState.roles?.find(rolUser => rolUser.name === rol) ? <Outlet /> : <Navigate replace to={`/${PrivateRoutes.PRIVATE}`} />
 }
 export default RolGuard 
