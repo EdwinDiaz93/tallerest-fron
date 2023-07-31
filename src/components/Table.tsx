@@ -23,6 +23,7 @@ const Table = <T extends object>({ data, headers, deleteData, editData, showData
                                     <th key={header.key} scope="col" className="px-6 py-4 font-medium text-gray-900">{header.label}</th>
                                 ))
                             }
+                            <th className="px-6 py-4 font-medium text-gray-900">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
