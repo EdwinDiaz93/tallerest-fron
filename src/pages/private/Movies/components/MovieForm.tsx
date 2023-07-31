@@ -4,17 +4,13 @@ import { MovieFormValues } from '../../../../interfaces';
 interface Props {
     closeModal: any;
     saveMovie: any
+    movie: MovieFormValues
 }
 
-const MoviehtmlForm = ({ closeModal, saveMovie }: Props) => {
-
+const MoviehtmlForm = ({ movie, closeModal, saveMovie }: Props) => {
     const form = useForm<MovieFormValues>({
         defaultValues: {
-            id: 0,
-            name: '',
-            budget: 0,
-            date: '',
-            duration: 0
+            ...movie,            
         }
     });
 
@@ -122,7 +118,7 @@ const MoviehtmlForm = ({ closeModal, saveMovie }: Props) => {
                 <p className="text-red text-sm italic text-red-600">{errors.duration?.message}.</p>
             </div>
             <div className='flex flex-row flex-wrap  justify-between col-span-2'>
-                <button  className=' border-cyan-400 font-semibold text-white bg-cyan-800 p-2 border-2 ml-2' type='submit'>Save Movie</button>
+                <button className=' border-cyan-400 font-semibold text-white bg-cyan-800 p-2 border-2 ml-2' type='submit'>Save Movie</button>
                 <button onClick={closeModal} className=' border-cyan-400 font-semibold text-white bg-red-600 p-2 border-2 ml-2'>Cancel</button>
             </div>
         </form>

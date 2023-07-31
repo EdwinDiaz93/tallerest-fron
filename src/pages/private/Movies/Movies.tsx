@@ -7,10 +7,20 @@ import { MoviesRepository } from "../../../services";
 import { setMovies } from "../../../redux/states/movie";
 import { ITableHeaders, Movie, MovieFormValues } from "../../../interfaces";
 import { MovieForm } from "./components";
+import { dateTransform } from "../../../utilities";
 
 const Movies = () => {
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showDetail, setShowDetail] = useState<boolean>(false);
+
+  const [movie, setMovie] = useState<MovieFormValues>({
+    id: 0,
+    name: '',
+    budget: 0,
+    date: '',
+    duration: 0,
+  });
 
   const dispatch = useDispatch();
   const data = useSelector((store: AppStore) => store.movie);
@@ -24,8 +34,27 @@ const Movies = () => {
   ];
 
   // functions
-  const showMovie = (row: Movie) => console.log(row);
-  const editMovie = (row: Movie) => console.log(row);
+  const showMovie = (movie: Movie) => {
+    setMovie({
+      id: +movie.id,
+      name: movie.name,
+      budget: movie.budget,
+      date: movie.date,
+      duration: movie.duration,
+    });
+    setShowDetail(true);
+  };
+
+  const editMovie = (movie: Movie) => {
+    setMovie({
+      id: +movie.id,
+      name: movie.name,
+      budget: movie.budget,
+      date: movie.date,
+      duration: movie.duration,
+    });
+    setShowModal(true);
+  };
 
   const deleteMovie = (movie: Movie) => {
     try {
@@ -65,8 +94,8 @@ const Movies = () => {
   const saveMovie = async (movie: MovieFormValues) => {
     try {
       if (movie.id === 0) {
-        delete movie.id;
-        await movieRepo.saveMovie(movie);
+        const { id, ...rest } = movie;
+        await movieRepo.saveMovie(rest);
         const response = await movieRepo.getMovies();
         dispatch(setMovies(response));
         Swal.fire({
@@ -75,7 +104,21 @@ const Movies = () => {
           title: `Movie ${movie.name} created`,
           showConfirmButton: false,
           timer: 2500
-        })
+        });
+      } else {
+        const { id, ...rest } = movie;
+
+        await movieRepo.updateMovie(id!, rest);
+
+        const response = await movieRepo.getMovies();
+        dispatch(setMovies(response));
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: `Movie ${movie.name} updated`,
+          showConfirmButton: false,
+          timer: 2500
+        });
       }
       setShowModal(false);
     } catch (error) {
@@ -86,6 +129,13 @@ const Movies = () => {
   // util functions
 
   const addNewMovie = () => {
+    setMovie({
+      id: 0,
+      name: '',
+      budget: 0,
+      date: '',
+      duration: 0,
+    })
     setShowModal(true);
   }
 
@@ -131,11 +181,34 @@ const Movies = () => {
       />
       {
         showModal &&
-        <Modal>
+        <Modal >
           <MovieForm
+            movie={movie}
             closeModal={closModal}
             saveMovie={saveMovie}
           />
+        </Modal>
+      }
+      {
+        showDetail &&
+        <Modal >
+          <h2 className="text-2xl text-center mb-2 font-bold">{movie.name}</h2>
+          <div className="grid grid-cols-2">
+            <span className="font-semibold">Name: </span>
+            <span>{movie.name}</span>
+
+            <span className="font-semibold">Budegt: </span>
+            <span>${movie.budget}</span>
+
+            <span className="font-semibold">Date: </span>
+            <span >{//@ts-ignore 
+              dateTransform(movie.date)
+            }</span>
+
+            <span className="font-semibold">Duration: </span>
+            <span >{movie.duration}</span>
+            <button onClick={() => setShowDetail(false)} className="bg-red-600 text-white border-red-300 rounded-md mt-2 p-2 ">Close</button>
+          </div>
         </Modal>
       }
     </div>

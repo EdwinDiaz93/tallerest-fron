@@ -24,6 +24,15 @@ export class MoviesRepository extends BaseRepository {
         }
     }
 
+    async updateMovie(id: number, movieValues: MovieFormValues) {
+        try {
+            const response = await this.request<MovieFormValues, any>(Http.PUT, `${MoviePath}/${id}`, movieValues);
+            return response
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
     async deleteMovie(id: string) {
         try {
             const response = await this.request<any, any>(Http.DELETE, `${MoviePath}/${id}`, {});
